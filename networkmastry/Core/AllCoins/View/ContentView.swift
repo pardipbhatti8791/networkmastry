@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let service: CoinDataService
+    private let service: CoinServiceProtocol
     @StateObject var viewModel: CoinsViewModel
    
-    init(service: CoinDataService) {
+    init(service: CoinServiceProtocol) {
         self.service = service
         self._viewModel = StateObject(wrappedValue: CoinsViewModel(service: service))
     }
@@ -25,11 +25,28 @@ struct ContentView: View {
                             Text("\(coin.marketCapRank)")
                                 .foregroundStyle(.gray)
                             
+                            CoinImageView(url: coin.image)
+                                .frame(width: 32, height: 32)
+                            
+//                            AsyncImage(url: URL(string: coin.image)) { image in
+//                                image
+//                                    .resizable()
+//                                    .frame(width: 32, height: 32)
+//                            } placeholder: {
+//                                EmptyView()
+//                            }
+
+                            
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(coin.name)
                                     .fontWeight(.semibold)
                                 
                                 Text(coin.symbol.uppercased())
+                            }
+                        }
+                        .onAppear {
+                            if coin == viewModel.coins.last {
+                                Task { await viewModel.fetchCoins() }
                             }
                         }
                         .font(.footnote)
@@ -44,11 +61,12 @@ struct ContentView: View {
                     Text(error)
                 }
             }
+        }.task {
+            await viewModel.fetchCoins()
         }
-        
     }
 }
 
-//#Preview {
-//    ContentView(service: service)
-//}
+#Preview {
+    ContentView(service: CoinDataService())
+}

@@ -11,17 +11,18 @@ class CoinsViewModel: ObservableObject {
     @Published var coins = [Coin]()
     @Published var errorMessage: String?
     
-    private let service:  CoinDataService
+    private let service:  CoinServiceProtocol
     
-    init(service: CoinDataService) {
+    init(service: CoinServiceProtocol) {
         self.service = service
-        Task { await fetchCoins() }
+//        Task { await fetchCoins() }
     }
   
     @MainActor
     func fetchCoins() async  {
         do {
-            self.coins = try await service.fetchCoins()
+            let coins = try await service.fetchCoins()
+            self.coins.append(contentsOf: coins)
         } catch {
             guard let error = error as? CoinApiError else { return }
             self.errorMessage = error.customDescription

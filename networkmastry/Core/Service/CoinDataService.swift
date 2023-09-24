@@ -7,9 +7,17 @@
 
 import Foundation
 
-class CoinDataService: HTTPDataDownloader {
+protocol CoinServiceProtocol {
+    func fetchCoins() async throws -> [Coin]
+    func fetchCoinDetails(id: String) async throws -> CoinDetailsObject?
+}
+
+class CoinDataService: CoinServiceProtocol, HTTPDataDownloader {
+    private var page = 0
+    private let fetchLimit = 40
     
     func fetchCoins() async throws -> [Coin] {
+        page += 1
         guard let endpoint = allCoinsUrlString else { throw CoinApiError.requestFailed(description: "Invalid endpoint") }
         return try await fetchData(as: [Coin].self, endpoint: endpoint)
     }
@@ -50,8 +58,8 @@ extension CoinDataService {
         components.queryItems = [
             .init(name: "vs_currency", value: "usd"),
             .init(name: "order", value: "market_cap_desc"),
-            .init(name: "per_page", value: "20"),
-            .init(name: "page", value: "1"),
+            .init(name: "per_page", value: "\(fetchLimit)"),
+            .init(name: "page", value: "\(page)"),
             .init(name: "price_change_percentage", value: "24"),
             .init(name: "locale", value: "en")
         ]

@@ -12,7 +12,7 @@ struct CoinDetailsView: View {
     @ObservedObject var viewModel: CoinDetailsViewModel
 //    @State private var task: Task<(), Never>?
     
-    init(coin: Coin, service: CoinDataService) {
+    init(coin: Coin, service: CoinServiceProtocol) {
         self.coin = coin
         self.viewModel = CoinDetailsViewModel(coinId: coin.id, service: service)
     }
@@ -21,11 +21,19 @@ struct CoinDetailsView: View {
     var body: some View {
         VStack(alignment: .leading, content: {
             if let details = viewModel.coinDetails {
-                Text(details.name)
-                    .fontWeight(.semibold)
-                    .font(.subheadline)
-                Text(details.symbol.uppercased())
-                    .font(.footnote)
+                HStack {
+                    VStack {
+                        Text(details.name)
+                            .fontWeight(.semibold)
+                            .font(.subheadline)
+                        Text(details.symbol.uppercased())
+                            .font(.footnote)
+                    }
+                    Spacer()
+                    
+                    CoinImageView(url: coin.image)
+                        .frame(width: 60, height: 60)
+                }
                 
                 Text(details.description.text)
                     .padding(.vertical)
