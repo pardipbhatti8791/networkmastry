@@ -12,13 +12,12 @@ struct CoinDetailsView: View {
     @ObservedObject var viewModel: CoinDetailsViewModel
 //    @State private var task: Task<(), Never>?
     
-    init(coin: Coin) {
+    init(coin: Coin, service: CoinDataService) {
         self.coin = coin
-        self.viewModel = CoinDetailsViewModel(coinId: coin.id)
+        self.viewModel = CoinDetailsViewModel(coinId: coin.id, service: service)
     }
     
     // Mark:- body section
-    
     var body: some View {
         VStack(alignment: .leading, content: {
             if let details = viewModel.coinDetails {

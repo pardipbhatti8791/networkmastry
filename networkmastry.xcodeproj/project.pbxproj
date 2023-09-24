@@ -19,6 +19,7 @@
 		0690441E2ABF861800DBD89D /* CoinDetailsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0690441D2ABF861800DBD89D /* CoinDetailsObject.swift */; };
 		069044212ABF89B700DBD89D /* CoinDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069044202ABF89B700DBD89D /* CoinDetailsViewModel.swift */; };
 		069044712AC063BB00DBD89D /* HttpDataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069044702AC063BB00DBD89D /* HttpDataDownloader.swift */; };
+		069044742AC07DF900DBD89D /* CoinDetailsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069044732AC07DF900DBD89D /* CoinDetailsCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		0690441D2ABF861800DBD89D /* CoinDetailsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailsObject.swift; sourceTree = "<group>"; };
 		069044202ABF89B700DBD89D /* CoinDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailsViewModel.swift; sourceTree = "<group>"; };
 		069044702AC063BB00DBD89D /* HttpDataDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpDataDownloader.swift; sourceTree = "<group>"; };
+		069044732AC07DF900DBD89D /* CoinDetailsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailsCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 		069044182ABF81EC00DBD89D /* CoinDetails */ = {
 			isa = PBXGroup;
 			children = (
+				069044722AC07DE900DBD89D /* Cache */,
 				0690441F2ABF89A400DBD89D /* ViewModel */,
 				0690441C2ABF860900DBD89D /* Model */,
 				069044192ABF820500DBD89D /* View */,
@@ -193,6 +196,14 @@
 				069044702AC063BB00DBD89D /* HttpDataDownloader.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		069044722AC07DE900DBD89D /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				069044732AC07DF900DBD89D /* CoinDetailsCache.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0690441E2ABF861800DBD89D /* CoinDetailsObject.swift in Sources */,
+				069044742AC07DF900DBD89D /* CoinDetailsCache.swift in Sources */,
 				069044212ABF89B700DBD89D /* CoinDetailsViewModel.swift in Sources */,
 				0690441B2ABF821200DBD89D /* CoinDetailsView.swift in Sources */,
 				069044132ABF375100DBD89D /* CoinDataService.swift in Sources */,
