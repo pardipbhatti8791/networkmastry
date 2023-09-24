@@ -42,7 +42,7 @@ let jsonString = """
 
 class CoinDataService {
     private let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false&price_change_percentage=24h&locale=en"
-    private let detailsUrl = "https://api.coingecko.com/api/v3/coins/bitcoin"
+    
     
     func fetchCoins() async throws -> [Coin] {
         guard let url = URL(string: urlString) else { return []}
@@ -56,7 +56,7 @@ class CoinDataService {
             throw CoinApiError.invalidStatusCode(statusCode: httpResponse.statusCode)
         }
         
-//        let data = jsonString.data(using: .utf8)!        
+//        let data = jsonString.data(using: .utf8)!
         
         do {
             let coins = try JSONDecoder().decode([Coin].self, from: data)
@@ -68,6 +68,7 @@ class CoinDataService {
     }
     
     func fetchCoinDetails(id: String) async throws -> CoinDetailsObject? {
+        let detailsUrl = "https://api.coingecko.com/api/v3/coins/\(id)"
         guard let url = URL(string: detailsUrl) else { return nil}
         let (data, response) = try await URLSession.shared.data(from: url)
         

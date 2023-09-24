@@ -11,16 +11,21 @@ class CoinDetailsViewModel: ObservableObject {
     private let service = CoinDataService()
     private let id: String
     
+    @Published var coinDetails: CoinDetailsObject?
+    
     init(coinId: String) {
         self.id = coinId
-        
-        Task { await fetchCoinDetails() }
     }
-    
+   
+    @MainActor
     func fetchCoinDetails() async {
+        print("DEBUG: Fetching coins")
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        print("DEBUG: Task woke up")
+        
         do {
             let details = try await service.fetchCoinDetails(id: id)
-            print("DEBUG: details \(details)")
+            self.coinDetails = details
         } catch {
             print("DEBUG: Error\(error.localizedDescription)")
         }
