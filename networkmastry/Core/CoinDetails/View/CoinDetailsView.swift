@@ -16,6 +16,8 @@ struct CoinDetailsView: View {
         self.viewModel = CoinDetailsViewModel(coinId: coin.id)
     }
     
+    // Mark:- body section
+    
     var body: some View {
         Text(coin.name)
     }
